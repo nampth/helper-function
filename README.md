@@ -1,7 +1,7 @@
 # helper-function
 Useful helper function for PHP
 
-## postFile
+## 1) postFile
 Using PHP CURL to submit file(s) to remote API with base64 data
 
 - params @url: remote API path
