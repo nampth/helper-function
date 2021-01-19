@@ -78,3 +78,29 @@ if (!function_exists('remove_unicode_characters')) {
         return $str;
     }
 }
+
+/**
+ * send data to dropbox
+ */
+if (!function_exists(send_data_to_dropbox)) {
+    function send_data_to_dropbox()
+    {
+        $content = file_get_contents(storage_path('...'));
+        $ch = curl_init();
+        $fileName = date('Y-m-d') . "-....";
+
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . env('DROPBOX_ACCESS_TOKEN'),
+            'Content-Type: application/octet-stream',
+            "Dropbox-API-Arg: {\"path\": \"/backup-data/$fileName\",\"mode\": \"overwrite\",\"autorename\": false,\"mute\": false,\"strict_conflict\": false}"
+        ]);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+        curl_setopt($ch, CURLOPT_URL, 'https://content.dropboxapi.com/2/files/upload');
+
+        $result = curl_exec($ch);
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        curl_close($ch);
+    }
+}

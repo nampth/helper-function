@@ -22,3 +22,6 @@ Using php to remove unicode character
  * param @input: input string which you want to format
  * param @removeSpace: remove white space or not
  * param @$specialCharacter: remove special character or not
+ 
+ ## 3) send_data_to_dropbox
+ Just use curl for post data to Dropbox (via Dropbox API) 
